@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Rectilia-KSU
+kernel.string=Rectilia
 do.devicecheck=1
 do.modules=0
 do.systemless=1
@@ -35,6 +35,16 @@ ramdisk_compression=auto;
 set_perm_recursive 0 0 755 644 $ramdisk/*;
 set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 
+case "$ZIPFILE" in
+    *ksu*)
+    ui_print " • Using Rectilia KSU variant";
+    rm Image;
+    mv ksu/Image $home/Image;
+    ;;
+    *)
+    ui_print " • Using Rectilia normal variant";
+    ;;
+esac
 
 ## AnyKernel boot install
 dump_boot;
